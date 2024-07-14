@@ -1,32 +1,36 @@
 <% layout('/layouts/boilerplate') -%>
-
-<body>
-  <h1>Create New Listing</h1>
+<div class="row mt-3">  
+  <div class="col-8 offset-2">
+    <br><br>
+  <h3>Creat New listing</h3>
   <form action="/listings" method="POST">
-    <div>
-      <label for="title">Title:</label>
-      <input type="text" id="title" name="title" >
+    <div class="mb-3">
+      <label for="title" class="form-label">Title:</label>
+      <input type="text" id="title" name="title" class="form-control">
     </div>
-    <div>
-      <label for="description">Description:</label>
-      <textarea id="description" name="description" required></textarea>
+    <div class="mb-3"> 
+      <label for="description" class="form-label">Description:</label>
+      <textarea id="description" name="description" class="form-control" required></textarea>
     </div>
-    <div>
-      <label for="image">Image URL:</label>
-      <input type="text" id="image" name="image" >
+    <div class="mb-3">
+      <label for="image" class="form-label">Image URL:</label>
+      <input type="text" id="image" name="image"  class="form-control">
+    </div >
+    <div class="row">
+    <div class="mb-3 col-md-4">
+      <label for="price" class="form-label">Price:</label>
+      <input type="number" id="price" name="price" class="form-control" required>
     </div>
-    <div>
-      <label for="price">Price:</label>
-      <input type="number" id="price" name="price" required>
+    <div class="mb-3 col-md-8">
+      <label for="location" class="form-label">Location:</label>
+      <input type="text" id="location" name="location" class="form-control" required>
     </div>
-    <div>
-      <label for="location">Location:</label>
-      <input type="text" id="location" name="location" required>
+  </div>
+    <div class="mb-3">
+      <label for="country" class="form-label">Country:</label>
+      <input type="text" id="country" name="country" class="form-control" required>
     </div>
-    <div>
-      <label for="country">Country:</label>
-      <input type="text" id="country" name="country" required>
-    </div>
-    <button type="submit">Create Listing</button>
+    <button type="submit" class="btn btn-dark add-btn mt-3">Create Listing</button>
   </form>
-</body>
+</div>
+</div>
