@@ -1,0 +1,50 @@
+/* Navbar */
+.navbar {
+  height: 4rem;
+  background-color: white;
+}
+
+.nav-link {
+  color: #222222;
+}
+
+.fa-compass {
+  color: rgb(243, 86, 86);
+  font-size: 2rem;
+}
+
+
+/* footer  */
+
+.f-info-links a {
+  text-decoration: none;
+  color: #222222;
+}
+
+.f-info-links a:hover {
+  text-decoration: underline;
+}
+
+.f-info-links,
+.f-info-social , .f-info-brand{
+  width: 100%;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.f-info-social i {
+  margin-left: 1rem;
+}
+
+.f-info {
+  height: 7rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: white;
+  /* border-top: solid black  ; */
+}

@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>wanderlust</title>
-</head>
-<body>
-  <ul>
-    <li><%= showDetails.title %></li>
-    <li><%= showDetails.description %></li>
-    <li>Price: &#x20b9; <%= showDetails.price.toLocaleString("en-IN") %></li>    
-    <li><%= showDetails.country %></li>
-  </ul>
-</body>
-</html>
+<% layout('/layouts/boilerplate') -%>
+
+  <body>
+    <ul>
+      <li><%= showDetails.title %></li>
+      <li><%= showDetails.description %></li>
+      <li>Price: &#x20b9; <%= showDetails.price.toLocaleString("en-IN") %></li>
+      <li><%= showDetails.country %></li>
+    </ul>
+    <br />
+    <a href="/listings/<%= showDetails._id %>/edit"> edit the list</a>
+    <br /><br />
+    <form method="post" action="/listings/<%= showDetails._id %>?_method=DELETE">
+      <button>Delete this listings</button>
+    </form>
+  </body>
