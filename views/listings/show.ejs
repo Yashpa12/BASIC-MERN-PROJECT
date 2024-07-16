@@ -13,7 +13,7 @@
       <p class="card-text">
         <b><%= showDetails.title%></b><br />
         <%= showDetails.description %> <br />
-        Price: &#x20b9; <%= showDetails.price.toLocaleString("en-IN") %> <br />
+        &#x20b9; <%= showDetails.price?.toLocaleString("en-IN") ?? 'N/A' %> <br />
         <%= showDetails.location %> <br />
         <%= showDetails.country %> <br />
       </p>

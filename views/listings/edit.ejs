@@ -1,69 +1,86 @@
-
 <% layout('/layouts/boilerplate') -%>
 <div class="row mt-3">
   <div class="col-8 offset-2">
-
-<h1>Edit Your Listings</h1>
-<form method="POST" action="/listings/<%= showDetails._id %>?_method=PUT">
-  <div class="mb-3">
-    <label for="title" class="form-label">Title:</label>
-    <input
-      type="text"
-      id="title"
-      class="form-control"
-      name="title"
-      value="<%= showDetails.title%>"
-    />
-  </div>
-  <div class="mb-3">
-    <label for="description" class="form-label">Description:</label>
-    <textarea id="description" name="description"  class="form-control" required>
-<%= showDetails.description%></textarea
+    <h1>Edit Your Listings</h1>
+    <form
+      method="POST"
+      action="/listings/<%= showDetails._id %>?_method=PUT"
+      novalidate
+      class="needs-validation"
     >
-  </div>
-  <div class="mb-3">
-    <label for="image" class="form-label">Image URL:</label>
-    <input
-      type="text"
-      class="form-control"
-      id="image"
-      name="image"
-      value="<%= showDetails.image%> "
-    />
-  </div>
-  <div class="row">
-  <div class="mb-3 col-md-4">
-    <label for="price" class="form-label">Price:</label>
-    <input
-      type="number"
-      id="price"
-      name="price"
-      class="form-control"
-      value="<%= showDetails.price%> "
-    />
-  </div>
-  <div class="mb-3 col-md-8">
-    <label for="location" class="form-label">Location:</label>
-    <input
-      type="text"
-      id="location"
-      class="form-control"
-      name="location"
-      value="<%= showDetails.location%> "
-    />
+      <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <input
+          type="text"
+          id="title"
+          class="form-control"
+          name="title"
+          value="<%= showDetails.title%>"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description:</label>
+        <textarea
+          id="description"
+          name="description"
+          class="form-control"
+          required
+        >
+<%= showDetails.description%>
+</textarea
+        >
+        <div class="invalid-feedback">Please enter the short Description</div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Image URL:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="image"
+          name="image"
+          value="<%= showDetails.image%> "
+        />
+        <div class="invalid-feedback">Please enter the valid image</div>
+      </div>
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label">Price:</label>
+          <input
+            type="text"
+            id="price"
+            name="price"
+            class="form-control"
+            value="<%= showDetails.price%> "
+            required
+          />
+          <div class="invalid-feedback">Price should be valid</div>
+        </div>
+        <div class="mb-3 col-md-8">
+          <label for="location" class="form-label">Location:</label>
+          <input
+            type="text"
+            id="location"
+            class="form-control"
+            name="location"
+            value="<%= showDetails.location%> "
+            required
+          />
+          <div class="invalid-feedback">location should be valid</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="country" class="form-label">Country:</label>
+        <input
+          type="text"
+          id="country"
+          name="country"
+          class="form-control"
+          value="<%= showDetails.country%> "
+        />
+        <div class="invalid-feedback">Country name should be valid</div>
+      </div>
+      <button type="submit" class="btn btn-danger mt-3">Edit</button>
+    </form>
   </div>
 </div>
-  <div class="mb-3">
-    <label for="country" class="form-label">Country:</label>
-    <input
-      type="text"
-      id="country"
-      name="country"
-      class="form-control"
-      value="<%= showDetails.country%> "
-    />
-  </div>
-  <button type="submit" class="btn btn-danger mt-3">Edit</button>
-</form>
-</div>
-</div>
+<script src="/js/script.js"></script>

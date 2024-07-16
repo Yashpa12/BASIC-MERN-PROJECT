@@ -1,36 +1,80 @@
 <% layout('/layouts/boilerplate') -%>
-<div class="row mt-3">  
+<div class="row mt-3">
   <div class="col-8 offset-2">
-    <br><br>
-  <h3>Creat New listing</h3>
-  <form action="/listings" method="POST">
-    <div class="mb-3">
-      <label for="title" class="form-label">Title:</label>
-      <input type="text" id="title" name="title" class="form-control">
-    </div>
-    <div class="mb-3"> 
-      <label for="description" class="form-label">Description:</label>
-      <textarea id="description" name="description" class="form-control" required></textarea>
-    </div>
-    <div class="mb-3">
-      <label for="image" class="form-label">Image URL:</label>
-      <input type="text" id="image" name="image"  class="form-control">
-    </div >
-    <div class="row">
-    <div class="mb-3 col-md-4">
-      <label for="price" class="form-label">Price:</label>
-      <input type="number" id="price" name="price" class="form-control" required>
-    </div>
-    <div class="mb-3 col-md-8">
-      <label for="location" class="form-label">Location:</label>
-      <input type="text" id="location" name="location" class="form-control" required>
-    </div>
+    <br /><br />
+    <h3>Creat New listing</h3>
+    <form action="/listings" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <input type="text" id="title" name="title" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description:</label>
+        <textarea
+          id="description"
+          name="description"
+          class="form-control"
+          required
+        ></textarea>
+        <div class="invalid-feedback">
+          Please enter the short Description
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Image URL:</label>
+        <input
+          type="text"
+          id="image"
+          name="image"
+          class="form-control"
+          required
+        />
+       
+      </div>
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label">Price:</label>
+          <input
+            type="text"
+            id="price"
+            name="price"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">
+            Price should be valid
+          </div>
+        </div>
+        <div class="mb-3 col-md-8">
+          <label for="location" class="form-label">Location:</label>
+          <input
+            type="text"
+            id="location"
+            name="location"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">
+            location should be valid
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="country" class="form-label">Country:</label>
+        <input
+          type="text"
+          id="country"
+          name="country"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">
+          Country name should be valid
+        </div>
+      </div>
+      <button type="submit" class="btn btn-dark add-btn mt-3">
+        Create Listing
+      </button>
+    </form>
   </div>
-    <div class="mb-3">
-      <label for="country" class="form-label">Country:</label>
-      <input type="text" id="country" name="country" class="form-control" required>
-    </div>
-    <button type="submit" class="btn btn-dark add-btn mt-3">Create Listing</button>
-  </form>
-</div>
 </div>
