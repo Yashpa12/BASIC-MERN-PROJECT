@@ -8,6 +8,7 @@ const methodOverride = require("method-override");
 const ejsmate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapasync");
 const ExpressError = require("./utils/ExpressError");
+const Review = require("./models/review");
 mongoose
   .connect(MONGO_URL)
   .then(() => {
@@ -65,7 +66,7 @@ app.get(
   "/listings/:id",
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const showDetails = await Listing.findById(id);
+    const showDetails = await Listing.findById(id).populate("reviews");
     res.render("listings/show", { showDetails });
   })
 );
@@ -112,6 +113,31 @@ app.delete(
     res.redirect("/listings");
   })
 );
+
+// reviews routes
+app.post("/listings/:id/reviews", async (req, res) => {
+  let listing = await Listing.findById(req.params.id);
+  // Extract review and comment from req.body
+  let { rating, comment } = req.body;
+  let newReview = new Review({
+    rating: rating,
+    comment: comment,
+  });
+  await newReview.save();
+
+  listing.reviews.push(newReview._id);
+  await listing.save();
+  res.redirect(`/listings/${listing.id}`);
+});
+
+// review delete path
+app.delete("/listings/:id/reviews/:reviewId",wrapAsync( async (req, res) => {
+  let {id , reviewId} = req.params
+  // $pull removes the from existing array all instance of value or values thata match specififc condition
+  await Listing.findByIdAndUpdate(id  ,{$pull : {reviews : reviewId}})
+  await Review.findByIdAndDelete(reviewId);
+  res.redirect(`/listings/${id}`)
+}));
 
 app.get("/", (req, res) => {
   console.log("hii its root path");
