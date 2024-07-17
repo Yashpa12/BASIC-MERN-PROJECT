@@ -9,6 +9,8 @@ const ejsmate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapasync");
 const ExpressError = require("./utils/ExpressError");
 const Review = require("./models/review");
+const listings = require("./routes/listings");
+const reviews = require("./routes/review");
 mongoose
   .connect(MONGO_URL)
   .then(() => {
@@ -24,120 +26,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get(
-  "/listings",
-  wrapAsync(async (req, res) => {
-    const allList = await Listing.find({});
-    res.render("listings/index", { allList });
-  })
-);
-
-// creath path
-app.get(
-  "/listings/new",
-  wrapAsync(async (req, res) => {
-    res.render("listings/new");
-  })
-);
-
-// POST route to create a new listing
-app.post(
-  "/listings",
-  wrapAsync(async (req, res, next) => {
-    let { title, description, image, price, location, country } = req.body;
-    if (!title || !description || !image || !price || !location || !country) {
-      throw new ExpressError(400, "send valid data  ");
-    }
-    let newListing = new Listing({
-      title: title,
-      description: description,
-      image: image,
-      price: price,
-      location: location,
-      country: country,
-    });
-    await newListing.save();
-    res.redirect("/listings");
-  })
-);
-
-// show the item details
-app.get(
-  "/listings/:id",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    const showDetails = await Listing.findById(id).populate("reviews");
-    res.render("listings/show", { showDetails });
-  })
-);
-
-// edit
-app.get(
-  "/listings/:id/edit",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    const showDetails = await Listing.findById(id);
-    res.render("listings/edit", { showDetails });
-  })
-);
-
-// update route
-app.put(
-  "/listings/:id",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let { title, description, image, price, location, country } = req.body;
-
-    const updatedListing = await Listing.findByIdAndUpdate(id, {
-      title,
-      description,
-      image,
-      price,
-      location,
-      country,
-    });
-    if (!updatedListing) {
-      throw new ExpressError(404, "Listing not found");
-    }
-    res.redirect(`/listings/${id}`);
-  })
-);
-
-// delete routes
-app.delete(
-  "/listings/:id",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let deleteList = await Listing.findByIdAndDelete(id);
-    console.log(deleteList);
-    res.redirect("/listings");
-  })
-);
-
-// reviews routes
-app.post("/listings/:id/reviews", async (req, res) => {
-  let listing = await Listing.findById(req.params.id);
-  // Extract review and comment from req.body
-  let { rating, comment } = req.body;
-  let newReview = new Review({
-    rating: rating,
-    comment: comment,
-  });
-  await newReview.save();
-
-  listing.reviews.push(newReview._id);
-  await listing.save();
-  res.redirect(`/listings/${listing.id}`);
-});
-
-// review delete path
-app.delete("/listings/:id/reviews/:reviewId",wrapAsync( async (req, res) => {
-  let {id , reviewId} = req.params
-  // $pull removes the from existing array all instance of value or values thata match specififc condition
-  await Listing.findByIdAndUpdate(id  ,{$pull : {reviews : reviewId}})
-  await Review.findByIdAndDelete(reviewId);
-  res.redirect(`/listings/${id}`)
-}));
+// jaha par bhi /listings ayega vaha ham listings use karenge
+app.use("/listings", listings);
+// :id ye khali app.js tak simit rahata hai aur usake aage wale external tak ho jaate hai toh id reviews ke andar bhi jaaye esliye mergeparams ko use karte hai
+app.use("/listings/:id/reviews", reviews);
 
 app.get("/", (req, res) => {
   console.log("hii its root path");
